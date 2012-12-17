@@ -12,7 +12,7 @@ node_id: cassandra_node_1
 
 host: "localhost"
 #The absolute path of Cassandra
-runtime_path: "???"
+runtime_path: "bin/cassandra"
 
 port_range:
   first: 5000
