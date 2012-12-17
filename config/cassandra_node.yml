@@ -1,0 +1,19 @@
+---
+plan: free
+capacity: 100
+local_db: sqlite3:/var/vcap/services/cassandra/cassandra_node.db
+mbus: nats://nats:nats@localhost:4222
+base_dir: /var/vcap/services/cassandra/
+index: 0
+logging:
+  level: debug
+pid: /var/vcap/sys/run/cassandra_node.pid
+node_id: cassandra_node_1
+
+host: "localhost"
+#The absolute path of Cassandra
+runtime_path: "???"
+
+port_range:
+  first: 5000
+  last: 5005

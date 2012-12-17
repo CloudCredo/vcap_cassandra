@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# -*- mode: ruby -*-
+#
+# Copyright (c) 2009-2011 VMware, Inc.
+
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../../Gemfile", __FILE__)
+require 'bundler/setup'
+require 'vcap_services_base'
+
+$LOAD_PATH.unshift(File.expand_path("../../lib", __FILE__))
+require "cassandra_service/cassandra_node"
+
+class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
+
+  def node_class
+    VCAP::Services::Cassandra::Node
+  end
+
+  def default_config_file
+    File.join(File.dirname(__FILE__), '..', 'config', 'cassandra_node.yml')
+  end
+  
+  # Provides the configuration that is specifically required by the CassandraService
+  # such as port_ranges and runtime_paths for Cassandra.
+  #
+  # @returns options populated with the Cassandra Properties taken from cassandra_node.yml
+  def additional_config(options, config)
+    options[:host] = parse_property(config, "host", String)
+    options[:runtime_path] = parse_property(config, "runtime_path", String)
+    options[:port_range] = parse_property(config, "port_range", Range)
+    options
+  end
+
+end
+
+VCAP::Services::Cassandra::NodeBin.new.start
