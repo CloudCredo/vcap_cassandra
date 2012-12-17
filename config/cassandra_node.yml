@@ -2,7 +2,7 @@
 plan: free
 capacity: 100
 local_db: sqlite3:/var/vcap/services/cassandra/cassandra_node.db
-mbus: nats://nats:nats@localhost:4222
+mbus: nats://localhost:4222
 base_dir: /var/vcap/services/cassandra/
 index: 0
 logging:
