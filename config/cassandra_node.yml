@@ -10,6 +10,7 @@ logging:
 pid: /var/vcap/sys/run/cassandra_node.pid
 node_id: cassandra_node_1
 
+default_version: "1.6"
 supported_versions: ["1.6"]
 
 host: "localhost"
