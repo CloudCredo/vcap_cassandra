@@ -10,9 +10,11 @@ logging:
 pid: /var/vcap/sys/run/cassandra_node.pid
 node_id: cassandra_node_1
 
+supported_versions: ["1.6"]
+
 host: "localhost"
 #The absolute path of Cassandra
-runtime_path: "bin/cassandra"
+runtime_path: "bin/cassandra -p"
 
 port_range:
   first: 5000
