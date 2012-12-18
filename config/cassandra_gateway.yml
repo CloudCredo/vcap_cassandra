@@ -2,7 +2,7 @@
 # cloud_controller_uri: api.vcap.me
 service:
   name: cassandra
-  version: "1.6"
+  version: "1.6.1"
   description: 'Cassandra NoSQL store'
   plans: ['free']
   default_plan: free
@@ -17,7 +17,7 @@ ip_route: localhost
 #   port: 8080
 #   keepalive: true
 index: 0
-token: "0xdeadbeef"
+token: "cassandratoken"
 mbus: nats://localhost:4222
 logging:
   level: debug
