@@ -3,7 +3,7 @@ plan: free
 capacity: 100
 local_db: sqlite3:/var/vcap/services/cassandra/cassandra_node.db
 mbus: nats://localhost:4222
-base_dir: /var/vcap/services/cassandra/
+base_dir: /var/vcap/services/cassandra/instances
 index: 0
 logging:
   level: debug
@@ -20,3 +20,7 @@ runtime_path: "bin/cassandra -p"
 port_range:
   first: 5000
   last: 5005
+
+migration_nfs: /mnt/migration
+service_start_timeout: 10
+
