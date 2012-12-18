@@ -3,7 +3,7 @@
 service:
   name: cassandra
   version: "1.6.1"
-  timeout: 5
+  timeout: 25
   description: 'Cassandra NoSQL store'
   plans: ['free']
   default_plan: free
@@ -19,7 +19,7 @@ ip_route: 192.168.18.10
 #   keepalive: true
 index: 0
 token: "cassandratoken"
-mbus: nats://localhost:4222
+mbus: nats://nats:nats@192.168.18.10:4222
 logging:
   level: debug
 pid: /var/vcap/sys/run/cassandra_service.pid

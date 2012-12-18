@@ -148,11 +148,11 @@ class VCAP::Services::Cassandra::Node
 
     @logger.info "Starting Cassandra Service #{instance.name}"
 
-    cmd = "???"
-    @logger.debug "Executing #{cmd}"
-
     instance.pid = fork
 
+    cmd = "#{instance.runtime_path}"
+    @logger.debug "Executing #{cmd}"
+    
     begin
       exec(cmd) if instance.pid.nil?
     rescue => e

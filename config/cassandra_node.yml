@@ -2,7 +2,7 @@
 plan: free
 capacity: 100
 local_db: sqlite3:/var/vcap/services/cassandra/cassandra_node.db
-mbus: nats://localhost:4222
+mbus: nats://nats:nats@192.168.18.10:4222
 base_dir: /var/vcap/services/cassandra/instances
 index: 0
 logging:
@@ -15,7 +15,7 @@ supported_versions: ["1.6.1"]
 
 host: "localhost"
 #The absolute path of Cassandra
-runtime_path: "bin/cassandra -p"
+runtime_path: "/home/cloudfoundry/cassandra/bin/cassandra"
 
 port_range:
   first: 5000
