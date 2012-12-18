@@ -56,7 +56,7 @@ class VCAP::Services::Cassandra::Node
     @port_range = options[:port_range]
     @host = options[:host]
     @base_dir = options[:base_dir]
-    @supported_versions = ["1.0"]
+    @supported_versions = options[:supported_versions]
   end
 
   #TODO make this in to a module/mixin and import
