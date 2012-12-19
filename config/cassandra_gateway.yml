@@ -12,17 +12,17 @@ service:
   version_aliases:
     "current": "1.6.1"
 
-ip_route: 192.168.18.10
+ip_route: localhost
 #proxy:
 #   host: proxy
 #   port: 8080
 #   keepalive: true
 index: 0
 token: "cassandratoken"
-mbus: nats://nats:nats@192.168.18.10:4222
+mbus: nats://localhost:4222
 logging:
   level: debug
-pid: /var/vcap/sys/run/cassandra_service.pid
+pid: testres/tmp/cassandra_service.pid
 # z_interval: 30
 # check_orphan_interval: 3600
 # double_check_orphan_interval: 300
