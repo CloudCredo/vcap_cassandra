@@ -162,17 +162,17 @@ class VCAP::Services::Cassandra::Node
 
     @logger.info "Starting Cassandra Service #{instance.name}"
 
-    instance.pid = fork
-
-    cmd = "cassandra"
+    pidfile = "#{get_config_dir(instance)}/pid"
+    cmd = "cassandra -f -p #{pidfile}"
     @logger.debug "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
-    
+
+    instance.pid=fork
     begin
       exec({"CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
     rescue => e
       @logger.error "exec #{cmd} failed #{e}"
-
     end
+    #instance.pid = Integer(File.read(pidfile))
   end
 
   def save_instance(instance)
