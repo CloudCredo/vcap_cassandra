@@ -1,4 +1,4 @@
-# Copyright (c) 2009-2011 VMware, Inc.
+# Copyright (c) 2012 CloudCredo Ltd.
 require "fileutils"
 require "logger"
 require "datamapper"
@@ -16,6 +16,7 @@ module VCAP
   end
 end
 
+require "cassandra_service/cassandra_conf"
 require "cassandra_service/free_port_locator"
 require "cassandra_service/common"
 require "cassandra_service/cassandra_error"
@@ -32,7 +33,10 @@ class VCAP::Services::Cassandra::Node
     include DataMapper::Resource
 
     property :name,                   String,   :key => true
-    property :port,                   Integer
+    property :jmx_port,               Integer
+    property :storage_port,           Integer
+    property :ssl_storage_port,       Integer
+    property :rpc_port,               Integer
     property :host,                   String
     property :runtime_path,           String,   :length => 255
     property :pid,                    Integer
@@ -87,14 +91,19 @@ class VCAP::Services::Cassandra::Node
     instance = ProvisionedService.new
     instance.runtime_path = @runtime_path
 
-    instance.port = get_free_port(@port_range)
-    @logger.debug("Found free port #{instance.port}")
+    instance.storage_port = get_free_port(@port_range)
+    instance.ssl_storage_port = get_free_port(@port_range)
+    instance.jmx_port = get_free_port(@port_range)
+    instance.rpc_port = get_free_port(@port_range)
+
+    @logger.debug("Found free storage port #{instance.storage_port}")
 
     instance.host = @host
 
     instance.name = credential ? credential["name"] : UUIDTools::UUID.random_create.to_s
 
     begin
+      generate_config(instance)
       start_cassandra(instance)
       save_instance(instance)
       @logger.info("#{instance.inspect} provisioned")
@@ -143,6 +152,11 @@ class VCAP::Services::Cassandra::Node
     DataMapper::auto_upgrade!
   end
 
+
+  def generate_config(instance)
+    CassandraConfigurator.new(@base_dir, instance).generate_config_dir
+  end
+
   #Starts the instance of the Cassandra server by executing the :runtime_path property
   def start_cassandra(instance)
 
@@ -150,11 +164,11 @@ class VCAP::Services::Cassandra::Node
 
     instance.pid = fork
 
-    cmd = "#{instance.runtime_path}"
-    @logger.debug "Executing #{cmd}"
+    cmd = "cassandra"
+    @logger.debug "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
     
     begin
-      exec(cmd) if instance.pid.nil?
+      exec({"CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
     rescue => e
       @logger.error "exec #{cmd} failed #{e}"
 
@@ -176,6 +190,10 @@ class VCAP::Services::Cassandra::Node
     raise CassandraError.new(CassandraError::CASSANDRA_DESTORY_INSTANCE_FAILED, instance.inspect) unless instance.destroy
   end
 
+  def get_config_dir(instance)
+    "#@base_dir/#{instance.name}/conf"
+  end
+
   def get_instance(name)
     @logger.info("Looking for ProvisionedService with namne: #{name}")
     instance = ProvisionedService.get(name)
@@ -186,7 +204,9 @@ class VCAP::Services::Cassandra::Node
   def gen_credential(instance)
     credential = {
       "host" => instance.host,
-      "port" => instance.port,
+      "port" => instance.storage_port,
+      "ssl_port" => instance.ssl_storage_port,
+      "jmx_port" => instance.jmx_port,
       "name" => instance.name,
       "pid"  => instance.pid,
       "runtime_path" => instance.runtime_path

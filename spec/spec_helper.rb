@@ -13,6 +13,7 @@ require "fileutils"
 require 'vcap/common'
 require 'vcap/logging'
 require 'cassandra_service/cassandra_node'
+require 'cassandra_service/cassandra_conf'
 
 include VCAP::Services::Cassandra
 
@@ -60,6 +61,7 @@ def get_node_test_config()
   options = {
     :logger => get_logger,
     :plan => parse_property(config, "plan", String),
+    :base_dir => parse_property(config, "base_dir", String),
     :capacity => parse_property(config, "capacity", Integer),
     :node_id => parse_property(config, "node_id", String),
     :mbus => parse_property(config, "mbus", String),

@@ -1,3 +1,4 @@
+# Copyright (c) 2012 CloudCredo Ltd.
 require 'socket'
 
 class FreePortLocator

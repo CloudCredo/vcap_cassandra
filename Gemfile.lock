@@ -50,7 +50,7 @@ GIT
       beefcake
 
 GIT
-  remote: https://github.com/cghsystems/vcap-common.git
+  remote: https://github.com/cloudfoundry/vcap-common.git
   revision: fd6b6d91b19c551cf5091c8469595df923dd2612
   ref: fd6b6d91
   specs:
@@ -133,7 +133,7 @@ GEM
     eventmachine_httpserver (0.2.1)
     fastercsv (1.5.5)
     http_parser.rb (0.5.3)
-    httpclient (2.2.7)
+    httpclient (2.3.0.1)
     json (1.4.6)
     json_pure (1.7.3)
     macaddr (1.6.1)

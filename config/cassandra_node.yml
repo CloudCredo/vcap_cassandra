@@ -3,7 +3,7 @@ plan: free
 capacity: 100
 local_db: sqlite3:/tmp/cassandra_node.db
 mbus: nats://localhost:4222
-base_dir: testres/tmp/instances
+base_dir: /tmp/vcap/cassandra
 index: 0
 logging:
   level: debug
@@ -15,11 +15,15 @@ supported_versions: ["1.6.1"]
 
 host: "localhost"
 #The absolute path of Cassandra
-runtime_path: "testres/cassandra/bin/cassandra"
+runtime_path: "cassandra"
 
 port_range:
   first: 5000
-  last: 5005
+  last: 5100
+
+jmx_port_range:
+  first: 7100
+  last:  7200
 
 migration_nfs: /mnt/migration
 service_start_timeout: 10

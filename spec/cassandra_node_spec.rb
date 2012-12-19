@@ -1,4 +1,4 @@
-# Copyright (c) 2009-2011 VMware, Inc.
+# Copyright (c) 2012 CloudCredo Ltd.
 $:.unshift(File.dirname(__FILE__))
 require 'spec_helper'
 

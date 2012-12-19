@@ -1,3 +1,5 @@
+# Copyright (c) 2012 CloudCredo Ltd.
+
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
 require 'spec_helper'
