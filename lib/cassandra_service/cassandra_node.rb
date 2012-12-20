@@ -63,7 +63,6 @@ class VCAP::Services::Cassandra::Node
     @jmx_port_range = options[:jmx_port_range]
     @rpc_port_range = options[:rpc_port_range]
     @host = options[:host]
-    @hostname = options[:host]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
   end
@@ -209,6 +208,7 @@ class VCAP::Services::Cassandra::Node
   def gen_credential(instance)
     credential = {
       "host" => instance.host,
+      "hostname" => instance.host,
       "port" => instance.storage_port,
       "ssl_port" => instance.ssl_storage_port,
       "jmx_port" => instance.jmx_port,
