@@ -18,6 +18,7 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
 
   def default_config_file
     config_base_dir = ENV["CLOUD_FOUNDRY_CONFIG_PATH"] || File.join(File.dirname(__FILE__), '..', 'config')
+    put "CONFIG DIR=#{config_base_dir}"
     File.join(config_base_dir, 'cassandra_node.yml')
   end
   
@@ -29,6 +30,9 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
     options[:host] = parse_property(config, "host", String)
     options[:runtime_path] = parse_property(config, "runtime_path", String)
     options[:port_range] = parse_property(config, "port_range", Range)
+    options[:ssl_port_range] = parse_property(config, "ssl_port_range", Range)
+    options[:jmx_port_range] = parse_property(config, "jmx_port_range", Range)
+    options[:rpc_port_range] = parse_property(config, "rpc_port_range", Range)
     options[:supported_versions] = parse_property(config, "supported_versions", Array)
     options[:default_version] = parse_property(config, "default_version", String)
     options
