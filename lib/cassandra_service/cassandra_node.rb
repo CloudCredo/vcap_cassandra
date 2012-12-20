@@ -209,14 +209,10 @@ class VCAP::Services::Cassandra::Node
     credential = {
       "host" => instance.host,
       "hostname" => instance.host,
-      "port" => instance.storage_port,
-      "ssl_port" => instance.ssl_storage_port,
-      "jmx_port" => instance.jmx_port,
+      "port" => instance.rpc_port,
       "name" => instance.name,
-      "pid"  => instance.pid,
       "username" => "fake",
       "password" => "fake",
-      "runtime_path" => instance.runtime_path
     }
   end
 end
