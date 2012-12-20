@@ -68,6 +68,9 @@ def get_node_test_config()
     :local_db => parse_property(config, "local_db", String),
     :ip_route => parse_property(config, "ip_route", String, :optional => true),
     :port_range => parse_property(config, "port_range", Range),
+    :jmx_port_range => parse_property(config, "jmx_port_range", Range),
+    :ssl_port_range => parse_property(config, "ssl_port_range", Range),
+    :rpc_port_range => parse_property(config, "rpc_port_range", Range),
     :host => parse_property(config, "host", String),
     :runtime_path => parse_property(config, "runtime_path", String),
   }

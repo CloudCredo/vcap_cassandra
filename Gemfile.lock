@@ -51,11 +51,10 @@ GIT
 
 GIT
   remote: https://github.com/cloudfoundry/vcap-common.git
-  revision: fd6b6d91b19c551cf5091c8469595df923dd2612
-  ref: fd6b6d91
+  revision: 45cd194dce44d590512d50d344f66cbe84b46732
   specs:
-    vcap_common (2.0.7)
-      em-http-request (~> 1.0.0.beta3)
+    vcap_common (2.0.10)
+      em-http-request (~> 1.0.0.beta3, < 1.0.0.beta4)
       eventmachine
       httpclient
       membrane (~> 0.0.2)
@@ -64,7 +63,7 @@ GIT
       nats (~> 0.4.24)
       posix-spawn (~> 0.3.6)
       thin
-      yajl-ruby (~> 0.8.3)
+      yajl-ruby
 
 GEM
   remote: http://rubygems.org/
@@ -196,7 +195,7 @@ GEM
     uuidtools (2.1.3)
     vegas (0.1.11)
       rack (>= 1.0.0)
-    yajl-ruby (0.8.3)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby

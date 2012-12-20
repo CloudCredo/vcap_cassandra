@@ -19,11 +19,19 @@ runtime_path: "cassandra"
 
 port_range:
   first: 5000
-  last: 5100
+  last: 5020
+
+ssl_port_range:
+  first: 5021
+  last:  5030
 
 jmx_port_range:
-  first: 7100
-  last:  7200
+  first: 5031
+  last: 5040
+
+rpc_port_range:
+  first: 5041
+  last: 5050
 
 migration_nfs: /mnt/migration
 service_start_timeout: 10

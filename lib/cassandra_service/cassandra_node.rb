@@ -58,6 +58,9 @@ class VCAP::Services::Cassandra::Node
     @runtime_path = options[:runtime_path]
     @local_db = options[:local_db]
     @port_range = options[:port_range]
+    @ssl_port_range = options[:ssl_port_range]
+    @jmx_port_range = options[:jmx_port_range]
+    @rpc_port_range = options[:rpc_port_range]
     @host = options[:host]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
@@ -92,9 +95,9 @@ class VCAP::Services::Cassandra::Node
     instance.runtime_path = @runtime_path
 
     instance.storage_port = get_free_port(@port_range)
-    instance.ssl_storage_port = get_free_port(@port_range)
-    instance.jmx_port = get_free_port(@port_range)
-    instance.rpc_port = get_free_port(@port_range)
+    instance.ssl_storage_port = get_free_port(@ssl_port_range)
+    instance.jmx_port = get_free_port(@jmx_port_range)
+    instance.rpc_port = get_free_port(@rpc_port_range)
 
     @logger.debug("Found free storage port #{instance.storage_port}")
 
