@@ -18,7 +18,6 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
 
   def default_config_file
     config_base_dir = ENV["CLOUD_FOUNDRY_CONFIG_PATH"] || File.join(File.dirname(__FILE__), '..', 'config')
-    put "CONFIG DIR=#{config_base_dir}"
     File.join(config_base_dir, 'cassandra_node.yml')
   end
   

@@ -38,6 +38,7 @@ class VCAP::Services::Cassandra::Node
     property :ssl_storage_port,       Integer
     property :rpc_port,               Integer
     property :host,                   String
+    property :hostname,               String
     property :runtime_path,           String,   :length => 255
     property :pid,                    Integer
 
@@ -62,6 +63,7 @@ class VCAP::Services::Cassandra::Node
     @jmx_port_range = options[:jmx_port_range]
     @rpc_port_range = options[:rpc_port_range]
     @host = options[:host]
+    @hostname = options[:host]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
   end
