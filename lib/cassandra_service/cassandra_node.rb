@@ -214,6 +214,8 @@ class VCAP::Services::Cassandra::Node
       "jmx_port" => instance.jmx_port,
       "name" => instance.name,
       "pid"  => instance.pid,
+      "username" => "fake",
+      "password" => "fake",
       "runtime_path" => instance.runtime_path
     }
   end
