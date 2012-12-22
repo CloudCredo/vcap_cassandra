@@ -12,12 +12,16 @@ module VCAP
   end
 end
 
-#The port defined in the ../config/cassandra_node.yml :port property
-expected_port = 5000
+#This is the first RPC port picked out of the range.
+expected_port = 5041
 expected_host = "localhost"
-provisioned_service_name = "test-name"
 
-describe "Cassandra service node" do
+def provision
+  @default_plan = "free"
+  @node.provision(@default_plan)
+end
+
+describe "Cassandra process control" do
 
   before :all do
     @opts = get_node_test_config
@@ -35,9 +39,53 @@ describe "Cassandra service node" do
     @echoer.should_not == nil
   end
 
-  def provision
-    @default_plan = "free"
-    @node.provision(@default_plan)
+  it "should remove the cassandra service dir on unprovision" do
+    File.exist?("/tmp/vcap/cassandra/#{@echoer["name"]}").should be_true
+
+    @node.unprovision(@echoer["name"])
+
+    File.exist?("/tmp/vcap/cassandra/#{@echoer["name"]}").should be_false
+  end
+
+  it "should start new Cassandra instance" do
+    @echoer["port"].should be expected_port
+
+    pid_file = "/tmp/vcap/cassandra/#{@echoer["name"]}/conf/pid"
+    begin
+      process_in_pid_file_running(pid_file).should be_true
+    ensure
+      @node.unprovision(@echoer["name"])
+    end
+  end
+
+  def process_in_pid_file_running(pid_file)
+    begin
+      pid = File.read(pid_file)
+      Process.getpgid(Integer(pid))
+      true
+    rescue Errno::ESRCH
+      false
+    end
+  end
+
+end
+
+describe "Cassandra service node" do
+
+  before :all do
+    @opts = get_node_test_config
+    @opts.freeze
+    @logger = @opts[:logger]
+    # Setup code must be wrapped in EM.run
+    EM.run do
+      @node = Node.new(@opts)
+      EM.add_timer(1) { EM.stop }
+    end
+  end
+
+  before :each do
+    @echoer = provision
+    @echoer.should_not == nil
   end
 
   after :each do
@@ -79,23 +127,10 @@ describe "Cassandra service node" do
     end
   end
 
-  it "should throw exception if the runtime_path executable cannot be found and executed" do
-     
-  end
+  #TODO, delete the directory on service unprovision.
+  #maybe do a clean up based on the database?
+  #Re-attach control of existing processes, check if they are running using the method ..
 
-  it "should start new Cassandra instance" do
-    pid = @echoer["pid"] #Process id of the service provisioned by the before statement
-    pid.should_not be_nil
-    @echoer["port"].should be expected_port
 
-    new_service = provision
-    new_pid =  new_service['pid'] #provision a new service instance
-    new_pid.should_not be_nil
-    #new_service['\'].should be expected_port+1
-
-    pid.should_not == new_pid
-
-    @node.unprovision(new_service['name'])
-  end
 
 end

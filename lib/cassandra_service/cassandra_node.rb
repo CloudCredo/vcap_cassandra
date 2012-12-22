@@ -92,6 +92,8 @@ class VCAP::Services::Cassandra::Node
 
   def provision(plan, credential = nil, version=nil)
 
+    @logger.debug("Using PLAN=#{plan}, CRED=#{credential}, VERSION=#{version}")
+
     instance = ProvisionedService.new
     instance.runtime_path = @runtime_path
 
@@ -109,6 +111,7 @@ class VCAP::Services::Cassandra::Node
     begin
       generate_config(instance)
       start_cassandra(instance)
+      write_pid_file(instance)
       save_instance(instance)
       @logger.info("#{instance.inspect} provisioned")
     rescue => e1
@@ -171,12 +174,16 @@ class VCAP::Services::Cassandra::Node
     @logger.debug "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
 
     instance.pid=fork
+
     begin
       exec({"CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
     rescue => e
       @logger.error "exec #{cmd} failed #{e}"
     end
-    #instance.pid = Integer(File.read(pidfile))
+  end
+
+  def write_pid_file(instance)
+    File.open("#{get_config_dir(instance)}/pid", 'w') {|f| f.write(instance.pid) }
   end
 
   def save_instance(instance)
@@ -189,7 +196,8 @@ class VCAP::Services::Cassandra::Node
 
     @logger.warn("About to kill #{instance.name}")
     instance.kill(:SIGKILL) if instance.running?
-    @logger.warn("#{instance.name} is now dead.")
+    FileUtils.rm_rf("#@base_dir/#{instance.name}")
+    @logger.warn("#{instance.name} is now dead, and its configuration and data has been destroyed")
 
     raise CassandraError.new(CassandraError::CASSANDRA_DESTORY_INSTANCE_FAILED, instance.inspect) unless instance.destroy
   end
