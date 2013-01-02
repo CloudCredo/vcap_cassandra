@@ -35,10 +35,10 @@ hinted_handoff_throttle_delay_in_ms: 1
 # populate_io_cache_on_flush: false
 
 # authentication backend, implementing IAuthenticator; used to identify users
-authenticator: org.apache.cassandra.auth.AllowAllAuthenticator
+authenticator: com.cloudcredo.cassandra.auth.CloudCredoAuthenticator
 
 # authorization backend, implementing IAuthority; used to limit access/provide permissions
-authority: org.apache.cassandra.auth.AllowAllAuthority
+authority: com.cloudcredo.cassandra.auth.CloudCredoAuthorizer
 
 # The partitioner is responsible for distributing rows (by key) across
 # nodes in the cluster.  Any IPartitioner may be used, including your
