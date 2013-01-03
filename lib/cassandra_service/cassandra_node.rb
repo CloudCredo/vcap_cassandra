@@ -170,7 +170,7 @@ class VCAP::Services::Cassandra::Node
     @logger.info "Starting Cassandra Service #{instance.name}"
 
     pidfile = "#{get_config_dir(instance)}/pid"
-    cmd = "cassandra -f -p #{pidfile}"
+    cmd = "#{@runtime_path} -f -p #{pidfile}"
     @logger.info "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
 
     instance.pid=fork
