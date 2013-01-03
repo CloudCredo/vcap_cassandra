@@ -13,7 +13,8 @@ class CassandraConfigurator
     end
   end
 
-  def initialize(base_dir, instance)
+  def initialize(base_dir, instance, logger)
+    @logger = logger
     @base_dir = base_dir
     @instance = instance
     @instance_dir = "#@base_dir/#{@instance.name}"
@@ -23,7 +24,9 @@ class CassandraConfigurator
 
   def generate_config_dir
 
+    @logger.info "Creating directory #{@config_dir}"
     FileUtils.mkdir_p @config_dir
+    @logger.info "Directory #{@config_dir} created"
 
     write_cassandra_env
     write_rackdc

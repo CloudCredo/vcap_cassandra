@@ -161,7 +161,7 @@ class VCAP::Services::Cassandra::Node
 
 
   def generate_config(instance)
-    CassandraConfigurator.new(@base_dir, instance).generate_config_dir
+    CassandraConfigurator.new(@base_dir, instance, @logger).generate_config_dir
   end
 
   #Starts the instance of the Cassandra server by executing the :runtime_path property
@@ -171,7 +171,7 @@ class VCAP::Services::Cassandra::Node
 
     pidfile = "#{get_config_dir(instance)}/pid"
     cmd = "cassandra -f -p #{pidfile}"
-    @logger.debug "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
+    @logger.info "Executing #{cmd} with CASSANDRA_CONF=#{get_config_dir(instance)}"
 
     instance.pid=fork
 
