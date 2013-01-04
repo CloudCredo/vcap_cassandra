@@ -112,8 +112,10 @@ class VCAP::Services::Cassandra::Node
 
     instance.name = credential ? credential["name"] : UUIDTools::UUID.random_create.to_s
 
-    instance.user = UUID.new.generate
-    instance.pword = UUID.new.generate
+    instance.user = UUIDTools::UUID.random_create.to_s
+    instance.pword = UUIDTools::UUID.random_create.to_s
+
+    @logger.debug("Created service with name '#{instance.name}'")
 
     begin
       generate_config(instance)
@@ -168,7 +170,7 @@ class VCAP::Services::Cassandra::Node
 
 
   def generate_config(instance)
-    CassandraConfigurator.new(@base_dir, instance, @logger).generate_config_dir
+    CassandraConfigurator.new(@base_dir, instance).generate_config_dir
   end
 
   #Starts the instance of the Cassandra server by executing the :runtime_path property

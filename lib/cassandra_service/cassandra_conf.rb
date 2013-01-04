@@ -13,8 +13,7 @@ class CassandraConfigurator
     end
   end
 
-  def initialize(base_dir, instance, logger)
-    @logger = logger
+  def initialize(base_dir, instance)
     @base_dir = base_dir
     @instance = instance
     @instance_dir = "#@base_dir/#{@instance.name}"
@@ -24,9 +23,7 @@ class CassandraConfigurator
 
   def generate_config_dir
 
-    @logger.info "Creating directory #{@config_dir}"
     FileUtils.mkdir_p @config_dir
-    @logger.info "Directory #{@config_dir} created"
 
     write_cassandra_env
     write_rackdc
@@ -61,6 +58,7 @@ class CassandraConfigurator
                   :saved_caches_dir=>"#@instance_dir/saved_caches",
                   :storage_port=>@instance.storage_port,
                   :ssl_storage_port=>@instance.ssl_storage_port,
+                  :host=>@instance.host,
                   :rpc_port=>@instance.rpc_port})
   end
   def write_commitlog_archiving

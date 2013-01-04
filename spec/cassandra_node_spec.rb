@@ -51,6 +51,8 @@ describe "Cassandra process control" do
     @echoer["port"].should be expected_port
 
     pid_file = "/tmp/vcap/cassandra/#{@echoer["name"]}/conf/pid"
+
+    puts "Checking pid file #{pid_file}"
     begin
       process_in_pid_file_running(pid_file).should be_true
     ensure
