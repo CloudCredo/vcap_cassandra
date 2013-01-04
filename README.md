@@ -47,12 +47,22 @@ hash found in the file `$CF_HOME/cloudfoundry/vcap/services/tools/misc/bin/nuke_
 5. Download and install a Cassandra distribution.  We have tested vcap_cassandra against [Datastax] [6] distribution
 versions 1.1.6 and 1.1.7 which are available to download from the [Datastax community page] [7]. We reccommend that one
 of these versions is used for CloudFoundry.
-
 Where Cassandra is intalled is not too important as by default when provisioning a new service the cassandra_node will
 look for the `cassandra` executable on the sytem path ($PATH). This value is configurable via the `runtime_path` property
 in [vcap_cassandra/config/cassandra_node.yml] [5]. The property value can either remain as is in which case you must add
 the Cassandra distributiion `bin` directory to the $PATH or it can configured to be an abolsute path pointing to the
 `cassandra` executable of your installation.
+
+6. On the Service host add Cassandra to the `gateway` and `node` loops in the file `$CF_HOME/cloudfoundry/vcap/dev_setup/lib/vcap_components.rb`
+
+7. Bundle the necessary dependencies for the Cassandra node and gateway by executing the command
+`source $HOME/.cloudfoundry_deployment_profile && bundle package` from the `$CF_HOME/cloudfoundry/vcap/services/cassandra`
+directory
+
+8. Restart cloud controller using the command `$CF_HOME/cloudfoundry/vcap/dev_setup/bin/vcap_dev restart`. A Cassandra node
+and gateway should now appear in the list of running components. Running the command `vmc services` from a client targeted
+at the newly configured Cloud Foudry instance should reveal Cassandra as a new services.
+
 
 
 
