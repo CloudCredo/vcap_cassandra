@@ -41,6 +41,8 @@ class VCAP::Services::Cassandra::Node
     property :hostname,               String
     property :runtime_path,           String,   :length => 255
     property :pid,                    Integer
+    property :user,               String
+    property :pword,               String
 
     def kill(sig=:SIGTERM)
       @wait_thread = Process.detach(pid)
@@ -65,6 +67,8 @@ class VCAP::Services::Cassandra::Node
     @host = options[:host]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
+    @user = ""
+    @pword = ""
   end
 
   #TODO make this in to a module/mixin and import
@@ -107,6 +111,9 @@ class VCAP::Services::Cassandra::Node
     instance.host = @host
 
     instance.name = credential ? credential["name"] : UUIDTools::UUID.random_create.to_s
+
+    instance.user = UUID.new.generate
+    instance.pword = UUID.new.generate
 
     begin
       generate_config(instance)
@@ -176,7 +183,7 @@ class VCAP::Services::Cassandra::Node
     instance.pid=fork
 
     begin
-      exec({"CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
+      exec({"CF_USER"=>instance.user,"CF_PASSWORD"=>instance.pword, "CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
     rescue => e
       @logger.error "exec #{cmd} failed #{e}"
     end
@@ -219,8 +226,8 @@ class VCAP::Services::Cassandra::Node
       "hostname" => instance.host,
       "port" => instance.rpc_port,
       "name" => instance.name,
-      "username" => "fake",
-      "password" => "fake",
+      "username" => instance.user,
+      "password" => instance.pword,
     }
   end
 end
