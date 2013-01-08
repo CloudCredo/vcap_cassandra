@@ -2,15 +2,15 @@
 # cloud_controller_uri: api.vcap.me
 service:
   name: cassandra
-  version: "1.6.1"
+  version: "1.1.6"
   timeout: 25
   description: 'Cassandra NoSQL store'
   plans: ['free']
   default_plan: free
-  tags: ['Cassandra', 'Cassandra-1.6.1', 'cloudcredo']
-  supported_versions: ["1.6.1"]
+  tags: ['Cassandra', 'Cassandra-1.1.6', 'cloudcredo']
+  supported_versions: ["1.1.6"]
   version_aliases:
-    "current": "1.6.1"
+    "current": "1.1.6"
 
 ip_route: localhost
 #proxy:
