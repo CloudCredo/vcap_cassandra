@@ -54,7 +54,7 @@ the Cassandra distributiion `bin` directory to the $PATH or it can configured to
    <ol>
      <li>Clone and Build the artifact. You can find the code and instructions on how to build to module at [cassandra_chastity] [8].</li>
      <li>Copy the jar artifact to $CASSANDRA_INSTALL_LOCATION/lib</li>
-     <li>Set the below properties in $CASSANDRA_DEPLOYMENT/conf/cassandra.yaml to the below values:
+     <li>Set authenticator and authority properties in $CASSANDRA_DEPLOYMENT/conf/cassandra.yaml to the below values:
          <ul>
            <li>authenticator: com.cloudcredo.cassandra.auth.CloudCredoAuthenticator</li>
            <li>authority: org.apache.cassandra.auth.AllowAllAuthority</li>
