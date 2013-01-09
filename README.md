@@ -66,11 +66,11 @@ the Cassandra distributiion `bin` directory to the $PATH or it can configured to
 `source $HOME/.cloudfoundry_deployment_profile && bundle package` from the `$CF_HOME/cloudfoundry/vcap/services/cassandra`
 directory
 
-9. Restart cloud controller using the command `$CF_HOME/cloudfoundry/vcap/dev_setup/bin/vcap_dev restart`. A Cassandra node
+9. Restart the cloud controller using the command `$CF_HOME/cloudfoundry/vcap/dev_setup/bin/vcap_dev restart`. A Cassandra node
 and gateway should now appear in the list of running components. Running the command `vmc services` from a client targeted
 at the newly configured Cloud Foudry instance should reveal Cassandra as a new services.
 
-10. Code to test your deployment a very simple Cassandra client can be found at [cassandra-test-jvm-client] [9] along with
+10. Code to test your deployment can be found at [cassandra-test-jvm-client] [9] along with
 instructions on how to build and deploy to your CloudFoundry instance.
 
 
