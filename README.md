@@ -23,8 +23,7 @@ Chef.
 
 2. Add the Cassandra service token to the `builtin_services` hash found in the file
    `$CF_HOME/cloudfoundry/.deployments/devbox/config/cloud_controller.yml`. The cassandra token by default is
-   'cassandra_token' and can be changed in ???? as decribed in step xxxx. The Cassandra built in service should look
-   like:
+   'cassandra_token'. The Cassandra built in service should look like:
 
                    builtin_services:
                        redis:
