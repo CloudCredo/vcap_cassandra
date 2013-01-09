@@ -84,7 +84,7 @@ instructions on how to build and deploy to your CloudFoundry instance.
 A Bosh installation has also been created that allows Cassandra to be seamlessly deployed in to a bosh deployed CloudFoundry
 For more information on our Bosh deployment please email chris@cloudcredo.com.
 
-Copyright 2012 - CloudCredo Ltd.
+Copyright 2013 - CloudCredo Ltd.
 
 [1]: http://cassandra.apache.org                                                        "Cassandra"
 [2]: http://www.cloudfoundry.org                                                        "CloudFoundry"
