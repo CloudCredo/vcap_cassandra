@@ -138,7 +138,7 @@ describe "Cassandra service node" do
     end
   end
 
-  it "should delete crediential after unbinding" do
+  it "should delete credential after unbinding" do
     EM.run do
       binding = @node.bind(@echoer["name"], @default_opts)
       @node.unbind(binding)
@@ -149,6 +149,5 @@ describe "Cassandra service node" do
   #TODO, delete the directory on service unprovision.
   #maybe do a clean up based on the database?
   #Re-attach control of existing processes, check if they are running using the method ..
-
 
 end
