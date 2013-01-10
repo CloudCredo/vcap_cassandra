@@ -49,7 +49,7 @@ the Cassandra distributiion `bin` directory to the $PATH or it can configured to
 
 6. Clone, build and deploy the Cassandra security module.
    <ol>
-     <li>Clone and build the artifact. You can find the code and instructions on how to build to module at [cassandra_chastity] [8].</li>
+     <li>Clone and build the Cassandra Cloud Foundry security module. You can find the code and instructions on how to build to module at [cassandra_chastity] [8].</li>
      <li>Copy the jar artifact to $CASSANDRA_INSTALL_LOCATION/lib</li>
      <li>Set authenticator and authority properties in $CASSANDRA_DEPLOYMENT/conf/cassandra.yaml to the below values:
          <ul>
