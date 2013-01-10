@@ -27,13 +27,16 @@ describe "The free port locator" do
   end
 
   it "should raise an error when all of the ports in the range are taken" do
-    servers = Set.new
-    @range.each { |port|
-      servers << TCPServer.open(port)
-    }
-    expect { @locator.find_free_port }.to raise_error "All of the ports in the provided range #{@range.inspect} are taken.
+    begin
+      servers = Set.new
+      @range.each { |port|
+        servers << TCPServer.open(port)
+      }
+      expect { @locator.find_free_port }.to raise_error "All of the ports in the provided range #{@range.inspect} are taken.
     Please reconfigure your service.yml port range or free up the expected ports"
-    servers.each { |server| server.close }
+    ensure
+      servers.each { |server| server.close }
+    end
   end
 
 end
