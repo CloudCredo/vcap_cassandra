@@ -13,8 +13,6 @@ module VCAP
   end
 end
 
-#The port defined in the ../config/cassandra_node.yml :port property
-
 describe "Cassandra configuration" do
 
   before :each do
@@ -66,7 +64,7 @@ describe "Cassandra configuration" do
       @configurator.should be_instance_of CassandraConfigurator
       @configurator.generate_config_dir
       FileTest.exist?("#@base_dir/cassandra-1234/conf/cassandra-env.sh").should be_true
-      File.read("#@base_dir/cassandra-1234/conf/cassandra-env.sh").should include "JMX_PORT=\"7766\""
+      File.read("#@base_dir/cassandra-1234/conf/cassandra-env.sh").should include 'JMX_PORT="7766"'
       EM.stop
     end
   end
