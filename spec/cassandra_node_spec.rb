@@ -13,8 +13,8 @@ module VCAP
 end
 
 #This is the first RPC port picked out of the range.
-expected_port = 5041
-expected_host = "localhost"
+EXPECTED_PORT = 5041
+EXPECTED_HOST = "localhost"
 
 def provision
   @default_plan = "free"
@@ -65,7 +65,7 @@ describe "Cassandra process control" do
   end
 
   it "should start new Cassandra instance" do
-    @echoer["port"].should be expected_port
+    @echoer["port"].should be EXPECTED_PORT
 
     pid_file = "/tmp/vcap/cassandra/#{@echoer["name"]}/conf/pid"
 
@@ -111,11 +111,11 @@ describe "Cassandra service node" do
     @node.unprovision(@echoer["name"])
   end
 
-  it "should provison a cassandra service with correct credential" do
+  it "should provision a new cassandra service with correct credential" do
     EM.run do
       @echoer.should be_instance_of Hash
-      @echoer["port"].should be expected_port
-      @echoer["host"].should eq(expected_host)
+      @echoer["port"].should be EXPECTED_PORT
+      @echoer["host"].should eq(EXPECTED_HOST)
       EM.stop
     end
   end
@@ -123,8 +123,8 @@ describe "Cassandra service node" do
   it "should create a credential when binding" do
     EM.run do
       binding = @node.bind(@echoer["name"], @default_opts)
-      binding["port"].should be expected_port
-      binding["host"].should eq(expected_host)
+      binding["port"].should be EXPECTED_PORT
+      binding["host"].should eq(EXPECTED_HOST)
       EM.stop
     end
   end
