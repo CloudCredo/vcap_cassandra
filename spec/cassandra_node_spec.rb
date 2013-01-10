@@ -112,7 +112,7 @@ describe "Cassandra service node" do
     @node.unprovision(@echoer["name"])
   end
 
-  it "should provision a new cassandra service with correct credential" do
+  it "should provision a new Cassandra service with correct credential" do
     EM.run do
       @echoer.should be_instance_of Hash
       @echoer["port"].should be EXPECTED_PORT
@@ -146,9 +146,5 @@ describe "Cassandra service node" do
       EM.stop
     end
   end
-
-  #TODO, delete the directory on service unprovision.
-  #maybe do a clean up based on the database?
-  #Re-attach control of existing processes, check if they are running using the method ..
 
 end
