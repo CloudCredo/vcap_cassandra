@@ -75,13 +75,9 @@ class CassandraConfigurator
   end
 
   def write_config(templateName, bind)
-
     render = RenderErb.new(bind)
     config = render.render(templateName)
-
     config_path = File.join(@config_dir, templateName)
-
-    FileUtils.rm_f(config_path)
     File.open(config_path, "w") { |f| f.write(config) }
   end
 
