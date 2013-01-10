@@ -80,6 +80,7 @@ describe "Cassandra process control" do
   def process_in_pid_file_running(pid_file)
     begin
       pid = File.read(pid_file)
+      `ps #{pid}`.include?("bin/cassandra").should be_true
       Process.getpgid(Integer(pid))
       true
     rescue Errno::ESRCH
