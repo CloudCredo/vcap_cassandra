@@ -1,7 +1,5 @@
 # CloudFoundry Cassandra Service
 
-_Author: **Chris Hedley**_
-
 This code represent the adapter layer between [Cassandra] [1] and [CloudFoundry] [2].
 
 

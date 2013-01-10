@@ -120,7 +120,7 @@ describe "Cassandra service node" do
     end
   end
 
-  it "should create a crediential when binding" do
+  it "should create a credential when binding" do
     EM.run do
       binding = @node.bind(@echoer["name"], @default_opts)
       binding["port"].should be expected_port
