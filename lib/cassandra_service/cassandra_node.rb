@@ -216,7 +216,7 @@ class VCAP::Services::Cassandra::Node
   end
 
   def get_instance(name)
-    @logger.info("Looking for ProvisionedService with namne: #{name}")
+    @logger.info("Looking for ProvisionedService with name: #{name}")
     instance = ProvisionedService.get(name)
     raise CassandraError.new(CassandraError::CASSANDRA_FIND_INSTANCE_FAILED, name) if instance.nil?
     instance
