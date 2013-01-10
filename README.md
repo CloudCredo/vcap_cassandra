@@ -6,8 +6,7 @@ This code represent the adapter layer between [Cassandra] [1] and [CloudFoundry]
 ## Adding a service.
 
 We have stuck as closely as possible to the Cloud Foundry conventions of adding a service. Currently we support the
-addition fo the Cassandra support through BOSH and Chef.
-
+addition of Cassandra support through BOSH and [dev_setup] [10].
 
 
 ## Chef:
@@ -39,17 +38,17 @@ hash found in the file `$CF_HOME/cloudfoundry/vcap/services/tools/misc/bin/nuke_
 4. Clone [vcap_cassandra] [4] into `$CF_HOME/cloudfoundry/vcap/services/`
 
 5. Download and install a Cassandra distribution.  We have tested vcap_cassandra against [Datastax] [6] distribution
-versions 1.1.6 and 1.1.7 which are available to download from the [Datastax community page] [7]. We reccommend that one
-of these versions is used for CloudFoundry.
-Where Cassandra is intalled is not too important as by default when provisioning a new service the cassandra_node will
+versions 1.1.6 and 1.1.7 which are available to download from the [Datastax community page] [7]. We recommend that one
+of these versions is used for Cloud Foundry.
+Where Cassandra is installed is not too important as by default when provisioning a new service the cassandra_node will
 look for the `cassandra` executable on the sytem path ($PATH). This value is configurable via the `runtime_path` property
 in [vcap_cassandra/config/cassandra_node.yml] [5]. The property value can either remain as is in which case you must add
-the Cassandra distributiion `bin` directory to the $PATH or it can configured to be an abolsute path pointing to the
+the Cassandra distributiion `bin` directory to the $PATH or it can configured to be an absolute path pointing to the
 `cassandra` executable of your installation.
 
-6. Clone and build and deploy the Cassandra security module.
+6. Clone, build and deploy the Cassandra security module.
    <ol>
-     <li>Clone and Build the artifact. You can find the code and instructions on how to build to module at [cassandra_chastity] [8].</li>
+     <li>Clone and build the artifact. You can find the code and instructions on how to build to module at [cassandra_chastity] [8].</li>
      <li>Copy the jar artifact to $CASSANDRA_INSTALL_LOCATION/lib</li>
      <li>Set authenticator and authority properties in $CASSANDRA_DEPLOYMENT/conf/cassandra.yaml to the below values:
          <ul>
@@ -65,15 +64,10 @@ directory
 
 9. Restart the cloud controller using the command `$CF_HOME/cloudfoundry/vcap/dev_setup/bin/vcap_dev restart`. A Cassandra node
 and gateway should now appear in the list of running components. Running the command `vmc services` from a client targeted
-at the newly configured Cloud Foudry instance should reveal Cassandra as a new services.
+at the newly configured Cloud Foundry instance should reveal Cassandra as a new services.
 
 10. Code to test your deployment can be found at [cassandra-test-jvm-client] [9] along with
 instructions on how to build and deploy to your CloudFoundry instance.
-
-
-
-
-
 
 
 ## Bosh:
@@ -92,5 +86,6 @@ Copyright 2013 - CloudCredo Ltd.
 [7]: http://www.datastax.com/download/community                                         "Datastax community page"
 [8]: https://github.com/CloudCredo/cassandra_chastity                                   "cassandra_chastity"
 [9]: https://github.com/CloudCredo/cassandra-test-jvmclient                             "cassandra-test-jvm-client"
+[10]: https://github.com/cloudfoundry/vcap/tree/master/dev_setup                        "dev_setup"
 
 
