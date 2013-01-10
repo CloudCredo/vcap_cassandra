@@ -208,7 +208,7 @@ class VCAP::Services::Cassandra::Node
     FileUtils.rm_rf("#@base_dir/#{instance.name}")
     @logger.warn("#{instance.name} is now dead, and its configuration and data has been destroyed")
 
-    raise CassandraError.new(CassandraError::CASSANDRA_DESTORY_INSTANCE_FAILED, instance.inspect) unless instance.destroy
+    raise CassandraError.new(CassandraError::CASSANDRA_DESTROY_INSTANCE_FAILED, instance.inspect) unless instance.destroy
   end
 
   def get_config_dir(instance)
