@@ -20,14 +20,14 @@ describe "Cassandra configuration" do
   before :each do
     @base_dir = "/tmp/vcap-cassandra-test"
     @svc = VCAP::Services::Cassandra::Node::ProvisionedService.new(
-        :name=>"cassandra-1234",
-        :jmx_port=>7766,
-        :rpc_port=>7778,
-        :storage_port=>7779,
-        :ssl_storage_port=>7800,
-        :host=>"node_host",
-        :runtime_path=>"cassandra",
-        :pid=>"12345")
+        :name => "cassandra-1234",
+        :jmx_port => 7766,
+        :rpc_port => 7778,
+        :storage_port => 7779,
+        :ssl_storage_port => 7800,
+        :host => "node_host",
+        :runtime_path => "cassandra",
+        :pid => "12345")
     @configurator = CassandraConfigurator.new(@base_dir, @svc)
   end
 
