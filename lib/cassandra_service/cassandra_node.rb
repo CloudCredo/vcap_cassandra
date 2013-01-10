@@ -220,7 +220,7 @@ class VCAP::Services::Cassandra::Node
     instance
   end
 
-
+  privates
   def gen_credential(instance)
     credential = {
       "host" => instance.host,

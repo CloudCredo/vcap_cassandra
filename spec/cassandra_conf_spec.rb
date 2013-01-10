@@ -17,10 +17,6 @@ end
 
 describe "Cassandra configuration" do
 
-  before :all do
-
-  end
-
   before :each do
     @base_dir = "/tmp/vcap-cassandra-test"
     @svc = VCAP::Services::Cassandra::Node::ProvisionedService.new(
