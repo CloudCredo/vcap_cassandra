@@ -31,6 +31,7 @@ Chef.
                          token: changemysqltoken
                        cassandra:
                          token: cassandratoken
+                    ```
 
 3. On the Service host add the line `File.expand_path("../../cassandra/config/cassandra_gateway.yml", __FILE__)` to the `default_configs`
 hash found in the file `$CF_HOME/cloudfoundry/vcap/services/tools/misc/bin/nuke_service.rb`
