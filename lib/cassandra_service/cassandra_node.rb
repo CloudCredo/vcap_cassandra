@@ -161,8 +161,6 @@ class VCAP::Services::Cassandra::Node
   end
 
   def start_db
-    puts :default
-    puts @local_db
     DataMapper::Logger.new($stdout, :debug)
     DataMapper.setup(:default, @local_db)
     DataMapper::auto_upgrade!
@@ -221,6 +219,7 @@ class VCAP::Services::Cassandra::Node
     raise CassandraError.new(CassandraError::CASSANDRA_FIND_INSTANCE_FAILED, name) if instance.nil?
     instance
   end
+
 
   def gen_credential(instance)
     credential = {
