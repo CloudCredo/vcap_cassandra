@@ -35,8 +35,25 @@ describe "Cassandra process control" do
   end
 
   before :each do
+
+    #Required as the unit will persist the values, if they were stubbed values tests would fail with IntegrityError's
+    #(Could consider cleaning up the db on after)
+    user_name = UUIDTools::UUID.random_create.to_s
+    password = UUIDTools::UUID.random_create.to_s
+    name = UUIDTools::UUID.random_create.to_s
+
+    UUIDTools::UUID.should_receive(:random_create).and_return name
+    UUIDTools::UUID.should_receive(:random_create).and_return user_name
+    UUIDTools::UUID.should_receive(:random_create).and_return password
+
     @echoer = provision
-    @echoer.should_not == nil
+    @echoer['host'].should eq "localhost"
+    @echoer['hostname'].should eq "localhost"
+
+    @echoer['name'].should eq name
+    @echoer['username'].should eq user_name
+    @echoer['password'].should eq password
+
   end
 
   it "should remove the cassandra service dir on unprovision" do
@@ -132,7 +149,6 @@ describe "Cassandra service node" do
   #TODO, delete the directory on service unprovision.
   #maybe do a clean up based on the database?
   #Re-attach control of existing processes, check if they are running using the method ..
-
 
 
 end

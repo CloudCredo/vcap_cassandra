@@ -32,17 +32,17 @@ class VCAP::Services::Cassandra::Node
 
     include DataMapper::Resource
 
-    property :name,                   String,   :key => true
-    property :jmx_port,               Integer
-    property :storage_port,           Integer
-    property :ssl_storage_port,       Integer
-    property :rpc_port,               Integer
-    property :host,                   String
-    property :hostname,               String
-    property :runtime_path,           String,   :length => 255
-    property :pid,                    Integer
-    property :user,               String
-    property :pword,               String
+    property :name, String, :key => true
+    property :jmx_port, Integer
+    property :storage_port, Integer
+    property :ssl_storage_port, Integer
+    property :rpc_port, Integer
+    property :host, String
+    property :hostname, String
+    property :runtime_path, String, :length => 255
+    property :pid, Integer
+    property :user, String
+    property :pword, String
 
     def kill(sig=:SIGTERM)
       @wait_thread = Process.detach(pid)
@@ -89,8 +89,8 @@ class VCAP::Services::Cassandra::Node
 
   def announcement
     @capacity_lock.synchronize do
-      { :available_capacity => @capacity,
-        :capacity_unit => capacity_unit }
+      {:available_capacity => @capacity,
+       :capacity_unit => capacity_unit}
     end
   end
 
@@ -183,14 +183,14 @@ class VCAP::Services::Cassandra::Node
     instance.pid=fork
 
     begin
-      exec({"CF_USER"=>instance.user,"CF_PASSWORD"=>instance.pword, "CASSANDRA_CONF"=> get_config_dir(instance)}, cmd) if instance.pid.nil?
+      exec({"CF_USER" => instance.user, "CF_PASSWORD" => instance.pword, "CASSANDRA_CONF" => get_config_dir(instance)}, cmd) if instance.pid.nil?
     rescue => e
       @logger.error "exec #{cmd} failed #{e}"
     end
   end
 
   def write_pid_file(instance)
-    File.open("#{get_config_dir(instance)}/pid", 'w') {|f| f.write(instance.pid) }
+    File.open("#{get_config_dir(instance)}/pid", 'w') { |f| f.write(instance.pid) }
   end
 
   def save_instance(instance)
@@ -220,15 +220,15 @@ class VCAP::Services::Cassandra::Node
     instance
   end
 
-  privates
+  private
   def gen_credential(instance)
     credential = {
-      "host" => instance.host,
-      "hostname" => instance.host,
-      "port" => instance.rpc_port,
-      "name" => instance.name,
-      "username" => instance.user,
-      "password" => instance.pword,
+        "host" => instance.host,
+        "hostname" => instance.host,
+        "port" => instance.rpc_port,
+        "name" => instance.name,
+        "username" => instance.user,
+        "password" => instance.pword,
     }
   end
 end
