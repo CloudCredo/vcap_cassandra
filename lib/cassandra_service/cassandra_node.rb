@@ -58,6 +58,8 @@ class VCAP::Services::Cassandra::Node
   def initialize(options)
     super(options)
 
+    @instance_count = 0
+    @instance_limit = options[:instance_limit]
     @runtime_path = options[:runtime_path]
     @local_db = options[:local_db]
     @port_range = options[:port_range]
@@ -97,6 +99,12 @@ class VCAP::Services::Cassandra::Node
   def provision(plan, credential = nil, version=nil)
 
     @logger.debug("Using PLAN=#{plan}, CRED=#{credential}, VERSION=#{version}")
+
+    if(@instance_count < @instance_limit)
+      @instance_count += 1
+    else
+      raise "The Cassandra instance limit (#{@instance_limit}) has been exhausted for the host #{@host}"
+    end
 
     instance = ProvisionedService.new
     instance.runtime_path = @runtime_path

@@ -112,6 +112,18 @@ describe "Cassandra service node" do
     @node.unprovision(@echoer["name"])
   end
 
+  it "should not provision more than cassandra_instance_limit" do
+
+    #Setting limit 1 ensures that the limit is maxed out
+    begin
+      @node.instance_variable_set(:@instance_limit, 1)
+      expect { provision }.to raise_error("The Cassandra instance limit (1) has been exhausted for the host localhost")
+    ensure
+      @node.instance_variable_set(:@instance_limit, 10)
+    end
+
+  end
+
   it "should provision a new Cassandra service with correct credential" do
     EM.run do
       @echoer.should be_instance_of Hash

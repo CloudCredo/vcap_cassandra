@@ -16,6 +16,8 @@ supported_versions: ["1.1.6"]
 host: "localhost"
 #The absolute path of Cassandra
 runtime_path: "cassandra"
+#The maximum number of Cassandra instances allowed per host
+instance_limit: 10
 
 port_range:
   first: 5000

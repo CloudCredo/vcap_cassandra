@@ -23,7 +23,7 @@ describe "The free port locator" do
   it "should find the first free port of 5001 in the range 5000-5002 when 5000 is already taken" do
     begin
       server = TCPServer.open(5000)
-      @locator.find_free_port.should be 5001
+      @locator.find_free_port.should eq 5001
     ensure
       server.close
     end

@@ -60,6 +60,7 @@ def get_node_test_config()
   config = YAML.load_file(config_file)
   options = {
     :logger => get_logger,
+    :instance_limit => parse_property(config, "instance_limit", Integer),
     :plan => parse_property(config, "plan", String),
     :base_dir => parse_property(config, "base_dir", String),
     :capacity => parse_property(config, "capacity", Integer),
