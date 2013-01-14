@@ -21,6 +21,10 @@ def provision
   @node.provision(@default_plan)
 end
 
+def unprovision
+  @node.unprovision(@echoer["name"])
+end
+
 describe "Cassandra process control" do
 
   before :all do
@@ -109,7 +113,7 @@ describe "Cassandra service node" do
   end
 
   after :each do
-    @node.unprovision(@echoer["name"])
+    unprovision
   end
 
   it "should not provision more than cassandra_instance_limit" do
@@ -122,6 +126,20 @@ describe "Cassandra service node" do
       @node.instance_variable_set(:@instance_limit, 10)
     end
 
+  end
+
+  it "should decrement by a value of 1 the current provision count if a node is unprovisioned" do
+    #Setting limit 1 ensures that the limit is maxed out
+    begin
+      @node.instance_variable_set(:@instance_limit, 2)
+      cass_instance = provision
+      expect { provision }.to raise_error("The Cassandra instance limit (2) has been exhausted for the host localhost")
+      @node.unprovision(cass_instance['name'])
+      expect { provision }.to_not raise_error
+      expect { provision }.to raise_error("The Cassandra instance limit (2) has been exhausted for the host localhost")
+    ensure
+      @node.instance_variable_set(:@instance_limit, 10)
+    end
   end
 
   it "should provision a new Cassandra service with correct credential" do

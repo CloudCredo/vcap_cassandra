@@ -149,6 +149,7 @@ class VCAP::Services::Cassandra::Node
     @logger.debug("Unprovision Cassandra service: #{name}")
     instance = get_instance(name)
     destroy_instance(instance)
+    @instance_count -= 1
     true
   end
 
