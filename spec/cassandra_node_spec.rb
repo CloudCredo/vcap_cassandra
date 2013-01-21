@@ -52,8 +52,6 @@ describe "Cassandra process control" do
 
     @echoer = provision
     @echoer['host'].should eq "localhost"
-    @echoer['hostname'].should eq "localhost"
-
     @echoer['name'].should eq name
     @echoer['username'].should eq user_name
     @echoer['password'].should eq password

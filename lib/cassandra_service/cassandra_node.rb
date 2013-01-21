@@ -233,11 +233,11 @@ class VCAP::Services::Cassandra::Node
   def gen_credential(instance)
     credential = {
         "host" => instance.host,
-        "hostname" => instance.host,
         "port" => instance.rpc_port,
+        "cluster_name" => instance.name,
         "name" => instance.name,
         "username" => instance.user,
-        "password" => instance.pword,
+        "password" => instance.pword
     }
   end
 end
