@@ -66,7 +66,7 @@ class VCAP::Services::Cassandra::Node
     @ssl_port_range = options[:ssl_port_range]
     @jmx_port_range = options[:jmx_port_range]
     @rpc_port_range = options[:rpc_port_range]
-    @host = options[:host]
+    @host = options[:hostname]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
     @user = ""

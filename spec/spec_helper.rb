@@ -72,7 +72,7 @@ def get_node_test_config()
     :jmx_port_range => parse_property(config, "jmx_port_range", Range),
     :ssl_port_range => parse_property(config, "ssl_port_range", Range),
     :rpc_port_range => parse_property(config, "rpc_port_range", Range),
-    :host => parse_property(config, "host", String),
+    :hostname => parse_property(config, "host", String),
     :runtime_path => parse_property(config, "runtime_path", String),
   }
   options
