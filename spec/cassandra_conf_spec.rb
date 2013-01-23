@@ -23,7 +23,7 @@ describe "Cassandra configuration" do
         :rpc_port => 7778,
         :storage_port => 7779,
         :ssl_storage_port => 7800,
-        :host => "node_host",
+        :hostname => "node_host",
         :runtime_path => "cassandra",
         :pid => "12345")
     @configurator = CassandraConfigurator.new(@base_dir, @svc)

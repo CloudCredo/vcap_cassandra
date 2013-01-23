@@ -37,7 +37,6 @@ class VCAP::Services::Cassandra::Node
     property :storage_port, Integer
     property :ssl_storage_port, Integer
     property :rpc_port, Integer
-    property :host, String
     property :hostname, String
     property :runtime_path, String, :length => 255
     property :pid, Integer
@@ -66,7 +65,7 @@ class VCAP::Services::Cassandra::Node
     @ssl_port_range = options[:ssl_port_range]
     @jmx_port_range = options[:jmx_port_range]
     @rpc_port_range = options[:rpc_port_range]
-    @host = options[:hostname]
+    @hostname = options[:hostname]
     @base_dir = options[:base_dir]
     @supported_versions = options[:supported_versions]
     @user = ""
@@ -75,7 +74,7 @@ class VCAP::Services::Cassandra::Node
 
   #TODO make this in to a module/mixin and import
   def get_free_port(port_range)
-    FreePortLocator.new(@host, port_range.to_set).find_free_port
+    FreePortLocator.new(@hostname, port_range.to_set).find_free_port
   end
 
   def pre_send_announcement
@@ -105,7 +104,7 @@ class VCAP::Services::Cassandra::Node
     if(@instance_count < @instance_limit)
       @instance_count += 1
     else
-      raise "The Cassandra instance limit (#{@instance_limit}) has been exhausted for the host #{@host}"
+      raise "The Cassandra instance limit (#{@instance_limit}) has been exhausted for the host #{@hostname}"
     end
 
     @logger.debug("Instance Count set to: #{@instance_count}")
@@ -129,7 +128,7 @@ class VCAP::Services::Cassandra::Node
 
     @logger.debug("Found free storage port #{instance.storage_port}")
 
-    instance.host = @host
+    instance.hostname = @hostname
     instance.name = credential ? credential["name"] : UUIDTools::UUID.random_create.to_s
     instance.user = UUIDTools::UUID.random_create.to_s
     instance.pword = UUIDTools::UUID.random_create.to_s
@@ -243,8 +242,8 @@ class VCAP::Services::Cassandra::Node
   private
   def gen_credential(instance)
     credential = {
-        "hostname" => instance.host,
-        "host" => instance.host,
+        "hostname" => instance.hostname,
+        "host" => instance.hostname,
         "port" => instance.rpc_port,
         "cluster_name" => instance.name,
         "name" => instance.name,

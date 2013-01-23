@@ -54,7 +54,7 @@ class CassandraConfigurator
                   :saved_caches_dir => "#@instance_dir/saved_caches",
                   :storage_port => @instance.storage_port,
                   :ssl_storage_port => @instance.ssl_storage_port,
-                  :host => @instance.host,
+                  :host => @instance.hostname,
                   :rpc_port => @instance.rpc_port})
   end
 
