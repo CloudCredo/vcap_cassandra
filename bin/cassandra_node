@@ -34,6 +34,7 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
     options[:rpc_port_range] = parse_property(config, "rpc_port_range", Range)
     options[:supported_versions] = parse_property(config, "supported_versions", Array)
     options[:default_version] = parse_property(config, "default_version", String)
+    options[:instance_limit] = parse_property(config, "instance_limit", Integer)
     options
   end
 
