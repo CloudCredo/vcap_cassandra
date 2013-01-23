@@ -100,26 +100,37 @@ class VCAP::Services::Cassandra::Node
 
     @logger.debug("Using PLAN=#{plan}, CRED=#{credential}, VERSION=#{version}")
 
+    @logger.debug("Instance Limit: #{@instance_limit}, Instance Count: #{@instance_count}")
+
     if(@instance_count < @instance_limit)
       @instance_count += 1
     else
       raise "The Cassandra instance limit (#{@instance_limit}) has been exhausted for the host #{@host}"
     end
 
+    @logger.debug("Instance Count set to: #{@instance_count}")
+
     instance = ProvisionedService.new
+
+    @logger.debug("Runtim Path: #{@runtime_path}")
     instance.runtime_path = @runtime_path
 
+    @logger.debug("Runtim Path: #{@port_range}")
     instance.storage_port = get_free_port(@port_range)
+
+    @logger.debug("Runtim Path: #{@ssl_port_range}")
     instance.ssl_storage_port = get_free_port(@ssl_port_range)
+
+    @logger.debug("Runtim Path: #{@jmx_port_range}")
     instance.jmx_port = get_free_port(@jmx_port_range)
+
+    @logger.debug("Runtim Path: #{@rpc_port_range}")
     instance.rpc_port = get_free_port(@rpc_port_range)
 
     @logger.debug("Found free storage port #{instance.storage_port}")
 
     instance.host = @host
-
     instance.name = credential ? credential["name"] : UUIDTools::UUID.random_create.to_s
-
     instance.user = UUIDTools::UUID.random_create.to_s
     instance.pword = UUIDTools::UUID.random_create.to_s
 
