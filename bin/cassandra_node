@@ -26,7 +26,7 @@ class VCAP::Services::Cassandra::NodeBin < VCAP::Services::Base::NodeBin
   #
   # @returns options populated with the Cassandra Properties taken from cassandra_node.yml
   def additional_config(options, config)
-    options[:hostname] = parse_property(config, "hostname", String)
+    options[:hostname] = parse_property(config, "host", String)
     options[:runtime_path] = parse_property(config, "runtime_path", String)
     options[:port_range] = parse_property(config, "port_range", Range)
     options[:ssl_port_range] = parse_property(config, "ssl_port_range", Range)
