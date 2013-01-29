@@ -49,7 +49,8 @@ the Cassandra distributiion `bin` directory to the $PATH or it can configured to
 
 6. Clone, build and deploy the Cassandra security module.
    <ol>
-     <li>Clone and build the Cassandra Cloud Foundry security module. You can find the code and instructions on how to build to module at [cassandra_chastity] [8]</li>
+     <li>Clone and build the Cassandra Cloud Foundry security module. You can find the code and instructions on how to
+     build the module at [cassandra_chastity] [8] </li>
      <li>Copy the jar artifact to $CASSANDRA_INSTALL_LOCATION/lib</li>
      <li>Set authenticator and authority properties in $CASSANDRA_DEPLOYMENT/conf/cassandra.yaml to the below values:
          <ul>
@@ -57,7 +58,7 @@ the Cassandra distributiion `bin` directory to the $PATH or it can configured to
            <li>authority: org.apache.cassandra.auth.AllowAllAuthority</li>
     </ol>
 
-7. On the Service host add Cassandra to the `gateway` and `node` loops in the file `$CF_HOME/cloudfoundry/vcap/dev_setup/lib/vcap_components.rb`
+7. On the service host add Cassandra to the `gateway` and `node` loops in the file `$CF_HOME/cloudfoundry/vcap/dev_setup/lib/vcap_components.rb`
 
 8. Bundle the necessary dependencies for the Cassandra node and gateway by executing the command
 `source $HOME/.cloudfoundry_deployment_profile && bundle package` from the `$CF_HOME/cloudfoundry/vcap/services/cassandra`
