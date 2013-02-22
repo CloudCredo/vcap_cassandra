@@ -111,19 +111,19 @@ class VCAP::Services::Cassandra::Node
 
     instance = ProvisionedService.new
 
-    @logger.debug("Runtim Path: #{@runtime_path}")
+    @logger.debug("Runtime Path: #{@runtime_path}")
     instance.runtime_path = @runtime_path
 
-    @logger.debug("Runtim Path: #{@port_range}")
+    @logger.debug("Port Range: #{@port_range}")
     instance.storage_port = get_free_port(@port_range)
 
-    @logger.debug("Runtim Path: #{@ssl_port_range}")
+    @logger.debug("SSL Port Range: #{@ssl_port_range}")
     instance.ssl_storage_port = get_free_port(@ssl_port_range)
 
-    @logger.debug("Runtim Path: #{@jmx_port_range}")
+    @logger.debug("JMX POrt Range: #{@jmx_port_range}")
     instance.jmx_port = get_free_port(@jmx_port_range)
 
-    @logger.debug("Runtim Path: #{@rpc_port_range}")
+    @logger.debug("RPC Port Range: #{@rpc_port_range}")
     instance.rpc_port = get_free_port(@rpc_port_range)
 
     @logger.debug("Found free storage port #{instance.storage_port}")
